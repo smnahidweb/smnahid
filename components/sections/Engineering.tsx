@@ -1,153 +1,186 @@
 "use client";
 
-import React, { useState } from "react";
-import { TECHNOLOGIES, ENGINEERING_PRINCIPLES, TechnologyItem } from "@/lib/data";
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  PanelsTopLeft,
+  Server,
+  Database,
+  Code2,
+  GitBranch,
+  LayoutTemplate,
+  Globe,
+  LucideIcon,
+} from "lucide-react";
+import { STACK_CATEGORIES, StackCategory } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Code2, Server, Database, Layout, FileText, Globe, CheckCircle2 } from "lucide-react";
 
-type CategoryType = "Frontend" | "Backend" | "Database" | "UI / Design Systems" | "Forms / Data" | "CMS / Platforms";
+// ─── Icon Map ────────────────────────────────────────────────────────────────
 
-const CATEGORIES: { id: CategoryType; label: string; icon: React.ElementType }[] = [
-  { id: "Frontend", label: "Frontend Core", icon: Code2 },
-  { id: "Backend", label: "Backend & APIs", icon: Server },
-  { id: "Database", label: "Database & ORM", icon: Database },
-  { id: "UI / Design Systems", label: "UI & Design Systems", icon: Layout },
-  { id: "Forms / Data", label: "Forms & Data Engine", icon: FileText },
-  { id: "CMS / Platforms", label: "CMS & Platforms", icon: Globe },
-];
+const ICON_MAP: Record<string, LucideIcon> = {
+  PanelsTopLeft,
+  Server,
+  Database,
+  Code2,
+  GitBranch,
+  LayoutTemplate,
+  Globe,
+};
 
-export function Engineering() {
-  const [activeCategory, setActiveCategory] = useState<CategoryType>("Frontend");
-  const filteredTechs = TECHNOLOGIES.filter((t) => t.category === activeCategory);
-  const [selectedTech, setSelectedTech] = useState<TechnologyItem>(filteredTechs[0] || TECHNOLOGIES[0]);
+// ─── StackCard Component ──────────────────────────────────────────────────────
 
-  const handleCategoryChange = (cat: CategoryType) => {
-    setActiveCategory(cat);
-    const techsInCat = TECHNOLOGIES.filter((t) => t.category === cat);
-    if (techsInCat.length > 0) {
-      setSelectedTech(techsInCat[0]);
-    }
-  };
+function StackCard({ category, index }: { category: StackCategory; index: number }) {
+  const Icon = ICON_MAP[category.icon] ?? Code2;
 
   return (
-    <section id="engineering" className="py-20 md:py-28 border-t border-border-subtle bg-background">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
+      className="group relative flex flex-col h-full min-h-[160px] p-5 sm:p-6 rounded-[15px] border border-border-subtle bg-surface overflow-hidden transition-all duration-300 hover:border-[rgba(25,185,238,0.28)] hover:bg-surface-hover/30"
+    >
+      {/* Animated top-edge line on hover */}
+      <div
+        className="absolute top-0 left-0 h-px w-0 bg-gradient-to-r from-[#19B9EE]/0 via-[#19B9EE] to-[#19B9EE]/0 transition-all duration-500 group-hover:w-full"
+        aria-hidden="true"
+      />
+
+      {/* Subtle dot-grid texture that appears on hover */}
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        style={{
+          backgroundSize: "20px 20px",
+          backgroundImage: "radial-gradient(var(--grid-color) 1px, transparent 1px)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Card content */}
+      <div className="relative z-10 flex flex-col h-full gap-3.5">
+        {/* Top row: icon + number */}
+        <div className="flex items-start justify-between">
+          <div className="flex items-center justify-center w-9 h-9 rounded-[9px] border border-border-subtle bg-surface-raised transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:border-[rgba(25,185,238,0.22)]">
+            <Icon
+              className="w-4 h-4 text-foreground-muted transition-colors duration-300 group-hover:text-[#19B9EE]"
+              strokeWidth={1.75}
+            />
+          </div>
+          <span className="font-mono text-[11px] font-medium text-foreground-subtle transition-colors duration-300 group-hover:text-[#19B9EE] select-none">
+            {category.number}
+          </span>
+        </div>
+
+        {/* Category title */}
+        <h3 className="font-heading text-base sm:text-[17px] font-semibold text-foreground tracking-tight leading-snug">
+          {category.title}
+        </h3>
+
+        {/* Technology list */}
+        <p className="font-sans text-sm text-foreground-muted leading-relaxed transition-colors duration-300 group-hover:text-foreground-secondary">
+          {category.technologies.map((tech, i) => (
+            <React.Fragment key={tech}>
+              <span>{tech}</span>
+              {i < category.technologies.length - 1 && (
+                <span className="mx-1.5 text-foreground-subtle select-none" aria-hidden="true">·</span>
+              )}
+            </React.Fragment>
+          ))}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Engineering Principles Footer ───────────────────────────────────────────
+
+function PrinciplesFooter() {
+  const principles = [
+    "Clear architecture",
+    "Fast experiences",
+    "Thoughtful interfaces",
+    "Maintainable systems",
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 0.5 }}
+      className="mt-14 pt-8 border-t border-border-subtle"
+    >
+      <p className="font-sans text-sm text-center leading-relaxed">
+        <span className="text-foreground-subtle italic mr-3">I care about software that is</span>
+        {principles.map((p, i) => (
+          <React.Fragment key={p}>
+            <span className="text-foreground-secondary">{p}</span>
+            {i < principles.length - 1 && (
+              <span className="mx-2.5 text-foreground-subtle" aria-hidden="true">·</span>
+            )}
+          </React.Fragment>
+        ))}
+      </p>
+    </motion.div>
+  );
+}
+
+// ─── Main Engineering Section ─────────────────────────────────────────────────
+
+export function Engineering() {
+  const row1 = STACK_CATEGORIES.slice(0, 3); // Frontend, Backend, Database
+  const row2 = STACK_CATEGORIES.slice(3, 5); // Programming Languages, DevOps & Tools
+  const row3 = STACK_CATEGORIES.slice(5, 7); // CMS, Platforms
+
+  return (
+    <section
+      id="engineering"
+      className="py-20 md:py-28 border-t border-border-subtle bg-background"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Section header */}
         <SectionHeading
           number="04"
-          eyebrow="Architecture & Technical Capabilities"
-          title="Engineering Stack & Principles"
-          description="A structured index of technologies I rely on in production, how I apply them, and the architectural principles guiding my work."
+          eyebrow="Engineering"
+          title="Engineering Stack"
+          description="The tools and technologies I use to design, build, and ship modern web products."
         />
 
-        {/* Category Pill Switcher */}
-        <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-surface border border-border-subtle mb-8 max-w-full overflow-x-auto">
-          {CATEGORIES.map(({ id, label, icon: Icon }) => {
-            const isActive = activeCategory === id;
-            return (
-              <button
-                key={id}
-                onClick={() => handleCategoryChange(id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all duration-200 cursor-pointer shrink-0 ${isActive
-                    ? "bg-accent-cyan-subtle text-[#19B9EE] font-semibold border border-accent-cyan-border shadow-xs"
-                    : "text-foreground-secondary hover:text-foreground hover:bg-surface-hover"
-                  }`}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{label}</span>
-              </button>
-            );
-          })}
-        </div>
+        {/* ── Card Grid ── */}
+        <div className="space-y-3 sm:space-y-4">
 
-        {/* Interactive Capability Explorer (2 Columns: Tech Grid + Detailed Inspector) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-20">
-          {/* Left Grid: Clickable Tech Chips */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {filteredTechs.map((tech) => {
-              const isSelected = selectedTech.name === tech.name;
-              return (
-                <button
-                  key={tech.name}
-                  onClick={() => setSelectedTech(tech)}
-                  className={`text-left p-4 rounded-xl border transition-all duration-200 cursor-pointer flex flex-col justify-between space-y-2 ${isSelected
-                      ? "bg-surface border-[#19B9EE] ring-1 ring-[#19B9EE]/30 shadow-md"
-                      : "bg-surface/60 border-border-subtle hover:border-border-hover hover:bg-surface"
-                    }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-heading font-bold text-base text-foreground">
-                      {tech.name}
-                    </span>
-                    <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-surface-raised border border-border-subtle text-[#19B9EE]">
-                      {tech.level}
-                    </span>
-                  </div>
-                  <p className="text-xs text-foreground-muted line-clamp-2">
-                    {tech.description}
-                  </p>
-                </button>
-              );
-            })}
+          {/* Row 1: 3 equal columns — Frontend · Backend · Database */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            {row1.map((cat, i) => (
+              <StackCard key={cat.id} category={cat} index={i} />
+            ))}
           </div>
 
-          {/* Right Column: Deep Technology Inspector Panel */}
-          <div className="lg:col-span-6">
-            <div className="sticky top-24 p-6 sm:p-8 rounded-2xl bg-surface border border-border-subtle shadow-lg space-y-6">
-              <div className="flex items-center justify-between border-b border-border-subtle pb-4">
-                <div>
-                  <span className="font-mono text-xs text-[#19B9EE] uppercase tracking-wider font-semibold">
-                    {selectedTech.category} · System Inspector
-                  </span>
-                  <h3 className="text-2xl font-heading font-bold text-foreground">
-                    {selectedTech.name}
-                  </h3>
-                </div>
-                <span className="px-3 py-1 rounded-full bg-accent-cyan-subtle border border-accent-cyan-border font-mono text-xs text-[#19B9EE] font-semibold">
-                  {selectedTech.level}
-                </span>
-              </div>
-
-              {/* Architectural Overview */}
-              <div className="space-y-2">
-                <h4 className="font-mono text-xs uppercase tracking-wider text-foreground-muted font-semibold">
-                  Core Purpose & Capability
-                </h4>
-                <p className="text-sm text-foreground-secondary leading-relaxed">
-                  {selectedTech.description}
-                </p>
-              </div>
-
-              {/* What I Use It For */}
-              <div className="space-y-2">
-                <h4 className="font-mono text-xs uppercase tracking-wider text-foreground-muted font-semibold">
-                  Practical Implementation Context
-                </h4>
-                <div className="p-4 rounded-xl bg-surface-raised border border-border-subtle text-xs sm:text-sm text-foreground-secondary leading-relaxed">
-                  {selectedTech.usageContext}
-                </div>
-              </div>
-
-              {/* Associated Production Systems */}
-              <div className="space-y-2 pt-2 border-t border-border-subtle">
-                <h4 className="font-mono text-xs uppercase tracking-wider text-foreground-muted font-semibold">
-                  Implemented In Systems
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedTech.projects.map((proj) => (
-                    <span
-                      key={proj}
-                      className="px-3 py-1 rounded-lg bg-surface border border-border-subtle font-mono text-xs text-foreground flex items-center gap-1.5"
-                    >
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#19B9EE]" />
-                      <span>{proj}</span>
-                    </span>
-                  ))}
-                </div>
-              </div>
+          {/* Row 2: Programming Languages (wider 3/5) · DevOps & Tools (2/5) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+            <div className="lg:col-span-3">
+              <StackCard category={row2[0]} index={3} />
+            </div>
+            <div className="lg:col-span-2">
+              <StackCard category={row2[1]} index={4} />
             </div>
           </div>
+
+          {/* Row 3: CMS (2/5) · Platforms (wider 3/5) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+            <div className="lg:col-span-2">
+              <StackCard category={row3[0]} index={5} />
+            </div>
+            <div className="lg:col-span-3">
+              <StackCard category={row3[1]} index={6} />
+            </div>
+          </div>
+
         </div>
 
+        {/* Engineering principles */}
+        <PrinciplesFooter />
 
       </div>
     </section>

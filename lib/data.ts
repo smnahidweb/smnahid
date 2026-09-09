@@ -69,6 +69,66 @@ export interface PrincipleItem {
   detail: string;
 }
 
+export interface StackCategory {
+  id: string;
+  number: string;
+  title: string;
+  icon: string;
+  technologies: string[];
+}
+
+export const STACK_CATEGORIES: StackCategory[] = [
+  {
+    id: "frontend",
+    number: "01",
+    title: "Frontend",
+    icon: "PanelsTopLeft",
+    technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Radix UI", "Motion", "React Hook Form", "Zod", "TanStack Table", "Recharts"]
+  },
+  {
+    id: "backend",
+    number: "02",
+    title: "Backend",
+    icon: "Server",
+    technologies: ["Node.js", "Express", "REST APIs"]
+  },
+  {
+    id: "database",
+    number: "03",
+    title: "Database",
+    icon: "Database",
+    technologies: ["PostgreSQL", "MongoDB", "Prisma"]
+  },
+  {
+    id: "languages",
+    number: "04",
+    title: "Programming Languages",
+    icon: "Code2",
+    technologies: ["TypeScript", "JavaScript", "HTML", "CSS"]
+  },
+  {
+    id: "devops",
+    number: "05",
+    title: "DevOps & Tools",
+    icon: "GitBranch",
+    technologies: ["Git", "GitHub", "Vercel", "Vite", "ESLint"]
+  },
+  {
+    id: "cms",
+    number: "06",
+    title: "CMS",
+    icon: "LayoutTemplate",
+    technologies: ["Squarespace", "Shopify", "Wix"]
+  },
+  {
+    id: "platforms",
+    number: "07",
+    title: "Platforms",
+    icon: "Globe",
+    technologies: ["Vercel", "GitHub", "Google Cloud"]
+  }
+];
+
 export const PERSONAL_INFO = {
   name: "S.M. Nahid Hasan",
   shortName: "Nahid Hasan",

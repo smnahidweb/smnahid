@@ -72,25 +72,25 @@ export interface PrincipleItem {
 export const PERSONAL_INFO = {
   name: "S.M. Nahid Hasan",
   shortName: "Nahid Hasan",
-  title: "Software Engineer",
+  title: "Available for opportunities",
   positioning: "Frontend-focused Software Engineer · Full Stack Developer · Product Builder",
   location: "Dhaka, Bangladesh",
   timezone: "UTC+6",
-  email: "smnahidhasan.dev@gmail.com",
-  github: "https://github.com/smnahid",
-  linkedin: "https://linkedin.com/in/smnahid",
+  email: "smnahidhasan788@gmail.com",
+  github: "https://github.com/smnahidweb",
+  linkedin: "https://linkedin.com/in/smnahidh59/",
   status: "Available for new engineering opportunities",
-  yearsExperience: "4+",
+  yearsExperience: "2+",
   philosophy: "I care about building software that is simple to use, thoughtful in its architecture, and reliable in production.",
   headline: "Building thoughtful, high-performance software for the modern web.",
   subheadline: "Frontend-focused Software Engineer with deep experience crafting resilient production web applications using React, Next.js, TypeScript, and full-stack architecture.",
   bioParagraphs: [
-    "I am a Software Engineer who bridges the gap between meticulous design engineering and scalable full-stack systems. With over four years of hands-on experience, my engineering foundation was forged through building intricate frontend applications, which evolved organically into architecting complete full-stack web products.",
+    "I am a Software Engineer who bridges the gap between meticulous design engineering and scalable full-stack systems. With over two years of hands-on experience, my engineering foundation was forged through building intricate frontend applications, which evolved organically into architecting complete full-stack web products.",
     "I approach software development not merely as writing code, but as building reliable products. Every architectural choice, component boundary, and database schema is evaluated against real-world user experience, maintainability, and runtime performance.",
     "Currently pursuing my final year in Computer Science & Engineering at IUBAT while building production products, mentoring emerging engineers in modern web technologies, and constantly refining my mental model of modern software systems."
   ],
   stats: [
-    { label: "Years of Experience", value: "4+" },
+    { label: "Years of Experience", value: "2+" },
     { label: "Core Competency", value: "Frontend → Full Stack" },
     { label: "Academic Standing", value: "3.73 / 4.00" },
     { label: "Engineering Mindset", value: "Product First" }
@@ -456,11 +456,11 @@ export const PROJECTS: ProjectItem[] = [
 export const EXPERIENCES: ExperienceItem[] = [
   {
     id: "exp-1",
-    company: "Software & Web Development Solutions",
-    role: "Frontend & Full Stack Software Engineer",
+    company: "Softvence Agency",
+    role: "Frontend Developer",
     location: "Dhaka, Bangladesh",
-    period: "2022 — Present",
-    type: "Contract / Independent",
+    period: "2025 — Present",
+    type: "Full-time",
     current: true,
     description: "Engineering production-grade web applications, responsive client platforms, and custom digital systems with modern JavaScript/TypeScript ecosystems.",
     responsibilities: [
@@ -481,7 +481,7 @@ export const EXPERIENCES: ExperienceItem[] = [
     id: "exp-2",
     company: "Academic Department — IUBAT",
     role: "Academic Peer Mentor (C/C++ & MERN Stack)",
-    location: "Dhaka, Bangladesh",
+    location: "Uttara-10, Dhaka, Bangladesh",
     period: "2022 — 2023",
     type: "Academic Mentorship",
     description: "Selected by university faculty to mentor junior computer science students, lead hands-on programming workshops, and facilitate real-world project development.",
@@ -492,42 +492,23 @@ export const EXPERIENCES: ExperienceItem[] = [
       "Evaluated student lab projects and provided structured code reviews to elevate engineering standards."
     ],
     achievements: [
-      "Awarded Official Academic Mentor Recognition in Spring 2022 for outstanding contribution to C/C++ mentoring.",
-      "Awarded Second Academic Mentor Recognition in Summer 2022 for DBMS & MERN stack student coaching.",
+      "Awarded Official Academic Mentor in Spring 2022 for outstanding contribution to C/C++ mentoring.",
+      "Awarded Second Academic Mentor in Summer 2022 for DBMS & MERN stack student coaching.",
       "Mentored over 60+ junior students, with 90%+ achieving high letter grades in practical coursework."
     ],
     technologies: ["C", "C++", "JavaScript", "React", "Node.js", "Express", "MongoDB", "SQL / DBMS", "Git"]
   },
-  {
-    id: "exp-3",
-    company: "Freelance & CMS Engineering",
-    role: "Web Engineer & Platform Specialist",
-    location: "Remote",
-    period: "2020 — 2022",
-    type: "Freelance",
-    description: "Built custom web solutions, customized e-commerce storefronts, and integrated third-party business automation for diverse clients.",
-    responsibilities: [
-      "Developed custom e-commerce and corporate websites using Shopify, Squarespace, and Wix platforms.",
-      "Wrote custom CSS/JavaScript injection scripts to extend standard platform capabilities beyond template constraints.",
-      "Optimized client websites for search engine visibility, mobile responsiveness, and fast core web vitals.",
-      "Provided end-to-end client consultation from domain setup and DNS configuration to production deployment."
-    ],
-    achievements: [
-      "Successfully delivered 20+ commercial websites with positive client feedback.",
-      "Maintained 100% mobile responsiveness and cross-browser consistency across all deployments."
-    ],
-    technologies: ["JavaScript", "HTML5", "CSS3", "Shopify", "Squarespace", "Wix", "SEO Optimization"]
-  }
+
 ];
 
 export const EDUCATION_LIST: EducationItem[] = [
   {
     id: "edu-1",
-    institution: "International University of Business Agriculture and Technology (IUBAT)",
-    degree: "Bachelor of Science (B.Sc.)",
+    institution: "International University of Business Agriculture and Technology",
+    degree: "B.Sc.",
     field: "Computer Science & Engineering",
-    grade: "CGPA: 3.73 / 4.00",
-    period: "2021 — 2025 (Expected)",
+    grade: "CGPA 3.73 / 4.00",
+    period: "2021 — Present",
     status: "4th Year, Running",
     highlights: [
       "Consistent high academic standing with multiple Dean's List honors.",
@@ -539,9 +520,9 @@ export const EDUCATION_LIST: EducationItem[] = [
   {
     id: "edu-2",
     institution: "Rajshahi Cantonment Board School & College",
-    degree: "Higher Secondary Certificate (HSC)",
+    degree: "HSC",
     field: "Science",
-    grade: "GPA: 5.00 / 5.00 (Golden / Perfect)",
+    grade: "GPA 5.00 / 5.00",
     period: "2018 — 2020",
     highlights: [
       "Achieved highest possible grade (GPA 5.00) in national curriculum examination.",
@@ -551,9 +532,9 @@ export const EDUCATION_LIST: EducationItem[] = [
   {
     id: "edu-3",
     institution: "Bilkarilla B.M. High School",
-    degree: "Secondary School Certificate (SSC)",
+    degree: "SSC",
     field: "Science",
-    grade: "GPA: 5.00 / 5.00 (Golden / Perfect)",
+    grade: "GPA 5.00 / 5.00",
     period: "2016 — 2018",
     highlights: [
       "Achieved perfect GPA 5.00 in national secondary examinations.",
@@ -565,7 +546,7 @@ export const EDUCATION_LIST: EducationItem[] = [
 export const RECOGNITIONS: RecognitionItem[] = [
   {
     id: "rec-1",
-    title: "Academic Excellence — Perfect SGPA 4.00",
+    title: "Academic Excellence — Perfect SGPA 4.00 / 4.00",
     term: "Summer 2023",
     issuer: "IUBAT Academic Faculty",
     tag: "Academic Excellence",
@@ -574,7 +555,7 @@ export const RECOGNITIONS: RecognitionItem[] = [
   },
   {
     id: "rec-2",
-    title: "Academic Mentor Recognition — C & C++ Programming",
+    title: "Academic Mentor — C & C++ Programming",
     term: "Spring 2022",
     issuer: "Department of Computer Science & Engineering",
     tag: "Mentorship",
@@ -583,7 +564,7 @@ export const RECOGNITIONS: RecognitionItem[] = [
   },
   {
     id: "rec-3",
-    title: "Academic Mentor Recognition — DBMS & MERN Stack",
+    title: "Academic Mentor — DBMS & MERN Stack",
     term: "Summer 2022",
     issuer: "Department of Computer Science & Engineering",
     tag: "Mentorship",

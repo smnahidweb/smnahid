@@ -1,27 +1,60 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PERSONAL_INFO } from "@/lib/data";
 import {
+  ArrowRight,
   ArrowDown,
-  ArrowUpRight,
-  Terminal,
-  Cpu,
-  Layers,
-  Sparkles,
-  CheckCircle2,
-  Copy,
+  Mail,
   Check,
+  Copy,
+  Code2,
 } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
+
+const SPECIALTIES = [
+  "Frontend Software Engineer",
+  "Next.js & React Specialist",
+  "TypeScript & UI Architect",
+  "Full Stack Product Builder",
+];
 
 export function Hero() {
-  const [copied, setCopied] = useState(false);
+  const [specialtyIndex, setSpecialtyIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [copiedCode, setCopiedCode] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText(PERSONAL_INFO.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  // Typewriter effect
+  useEffect(() => {
+    const currentSpecialty = SPECIALTIES[specialtyIndex];
+    let timeout: NodeJS.Timeout;
+
+    if (!isDeleting) {
+      if (displayedText.length < currentSpecialty.length) {
+        timeout = setTimeout(() => {
+          setDisplayedText(currentSpecialty.slice(0, displayedText.length + 1));
+        }, 80);
+      } else {
+        // Pause at full word
+        timeout = setTimeout(() => {
+          setIsDeleting(true);
+        }, 2000);
+      }
+    } else {
+      if (displayedText.length > 0) {
+        timeout = setTimeout(() => {
+          setDisplayedText(currentSpecialty.slice(0, displayedText.length - 1));
+        }, 40);
+      } else {
+        setIsDeleting(false);
+        setSpecialtyIndex((prev) => (prev + 1) % SPECIALTIES.length);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayedText, isDeleting, specialtyIndex]);
 
   const handleScroll = (targetId: string) => {
     const el = document.getElementById(targetId);
@@ -30,161 +63,277 @@ export function Hero() {
     }
   };
 
+  const copyEmail = () => {
+    navigator.clipboard.writeText(PERSONAL_INFO.email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
+  const codeSnippet = `// smnahid.config.ts — Software Engineer
+
+interface Engineer {
+  name: string;
+  role: string;
+  stack: string[];
+  mindset: string;
+}
+
+export const nahid: Engineer = {
+  name: "S.M. Nahid Hasan",
+  role: "Frontend & Full Stack Engineer",
+  stack: ["Next.js", "React", "TypeScript", "Tailwind"],
+  mindset: "Clean Architecture & High Performance"
+};
+
+export async function buildProduct(requirements: Problem) {
+  return await engineerSolution({
+    typeSafety: "Strict",
+    responsiveUI: true,
+    userDelight: "Maximized"
+  });
+}`;
+
+  const copyCode = () => {
+    navigator.clipboard.writeText(codeSnippet);
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 2000);
+  };
+
   return (
     <section
       id="home"
-      className="relative min-h-[92vh] flex flex-col justify-center pt-28 pb-16 overflow-hidden bg-tech-grid"
+      className="relative min-h-[100vh] flex flex-col justify-center pt-28 sm:pt-32 pb-16 lg:pb-24 overflow-hidden bg-tech-grid"
     >
-      {/* Ambient subtle glow background */}
+      {/* Subtle atmospheric glow */}
       <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-[#19B9EE]/8 blur-[120px] rounded-full pointer-events-none -z-10"
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[850px] h-[350px] bg-[#19B9EE]/[0.05] dark:bg-[#19B9EE]/[0.08] blur-[140px] rounded-full pointer-events-none -z-10"
         aria-hidden="true"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        {/* Top Eyebrow & Status Bar */}
-        <div className="flex flex-wrap items-center gap-3 mb-6">
-        
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface/70 border border-border-subtle font-mono text-xs text-foreground-muted">
-            <span>Dhaka, BD (UTC+6)</span>
-            <span>·</span>
-            <span className="text-emerald-500 font-medium">Open to roles</span>
-          </div>
-        </div>
-
-        {/* Main Hero Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Typography & Intent */}
-          <div className="lg:col-span-7 space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold tracking-tight text-foreground leading-[1.08]">
-              Building thoughtful,{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#19B9EE] via-[#38C8F5] to-[#0284C7]">
-                high-performance
-              </span>{" "}
-              software for the modern web.
-            </h1>
 
-            {/* CTA Action Cluster */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <button
-                onClick={() => handleScroll("projects")}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-mono text-sm font-semibold bg-[#19B9EE] text-[#05070A] hover:bg-[#38C8F5] transition-all duration-200 shadow-md shadow-[#19B9EE]/20 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-              >
-                <span>View Selected Projects</span>
-                <ArrowDown className="w-4 h-4" />
-              </button>
+          {/* Left Column: Identity & Animated Specialty */}
+          <div className="lg:col-span-6 xl:col-span-7 flex flex-col justify-center space-y-6">
 
+            {/* Availability Badge */}
+            <div className="flex items-center">
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-surface/80 dark:bg-surface/60 border border-border-subtle shadow-xs backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span className="font-mono text-xs font-medium text-foreground-secondary">
+                  {PERSONAL_INFO.title}
+                </span>
+              </div>
+            </div>
+
+            {/* Main Name & Animated Specialty Headline */}
+            <div className="space-y-2 sm:space-y-3">
+              <h1 className="font-heading text-4xl sm:text-6xl lg:text-[4rem] font-bold tracking-tight text-foreground leading-[1.08]">
+                {PERSONAL_INFO.name}
+              </h1>
+
+              {/* Animated Specialty Text */}
+              <div className="h-10 sm:h-12 flex items-center">
+                <span className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#19B9EE] tracking-tight">
+                  {displayedText}
+                </span>
+                <span className="ml-0.5 font-heading text-2xl sm:text-3xl lg:text-4xl font-light text-[#19B9EE] animate-pulse">
+                  |
+                </span>
+              </div>
+            </div>
+
+            {/* Short Bio Description */}
+            <p className="font-sans text-base sm:text-lg text-foreground-muted max-w-xl leading-relaxed">
+              I build fast, scalable web applications and high-fidelity user interfaces using React, Next.js, and TypeScript. Passionate about clean architecture, performance optimization, and delightful user experiences.
+            </p>
+
+            {/* Action Buttons & Social Links */}
+            <div className="flex flex-wrap items-center gap-3.5 pt-2">
               <button
+                type="button"
                 onClick={() => handleScroll("contact")}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-mono text-sm font-medium bg-surface border border-border-subtle text-foreground hover:border-[#19B9EE]/50 hover:bg-surface-hover transition-all duration-200 shadow-xs cursor-pointer"
+                className="group inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-[#19B9EE] text-[#05070A] hover:bg-[#38C8F5] transition-all duration-200 shadow-md shadow-[#19B9EE]/25 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
               >
-                <span>Let&apos;s Connect</span>
-                <ArrowUpRight className="w-4 h-4 text-[#19B9EE]" />
+                <span>Hire Me</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </button>
 
               <button
-                onClick={copyEmail}
-                aria-label="Copy email address"
-                className="inline-flex items-center gap-2 px-3.5 py-3.5 rounded-xl border border-border-subtle bg-surface text-foreground-secondary hover:text-foreground hover:border-border-hover transition-colors cursor-pointer"
-                title="Copy email to clipboard"
+                type="button"
+                onClick={() => handleScroll("projects")}
+                className="group inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-xl font-mono text-xs sm:text-sm font-medium bg-surface/80 hover:bg-surface border border-border-subtle hover:border-[#19B9EE]/50 text-foreground transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer shadow-xs"
               >
-                {copied ? (
-                  <Check className="w-4 h-4 text-emerald-500" />
-                ) : (
-                  <Copy className="w-4 h-4" />
-                )}
-                <span className="sr-only sm:not-sr-only sm:text-xs sm:font-mono">
-                  {copied ? "Copied!" : "Email"}
-                </span>
+                <span>View Projects</span>
+                <ArrowDown className="w-4 h-4 text-[#19B9EE] transition-transform duration-200 group-hover:translate-y-0.5" />
               </button>
-            </div>
 
+              {/* Social / Direct Connect Icons */}
+              <div className="flex items-center gap-2 pl-1">
+                <a
+                  href={PERSONAL_INFO.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn Profile"
+                  className="p-3 rounded-xl border border-border-subtle bg-surface/80 text-foreground-secondary hover:text-[#19B9EE] hover:border-[#19B9EE]/50 transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
+                  title="LinkedIn"
+                >
+                  <LinkedinIcon className="w-4 h-4" />
+                </a>
+
+                <a
+                  href={PERSONAL_INFO.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub Profile"
+                  className="p-3 rounded-xl border border-border-subtle bg-surface/80 text-foreground-secondary hover:text-[#19B9EE] hover:border-[#19B9EE]/50 transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
+                  title="GitHub"
+                >
+                  <GithubIcon className="w-4 h-4" />
+                </a>
+
+                <button
+                  type="button"
+                  onClick={copyEmail}
+                  aria-label="Copy Email"
+                  className="p-3 rounded-xl border border-border-subtle bg-surface/80 text-foreground-secondary hover:text-[#19B9EE] hover:border-[#19B9EE]/50 transition-all duration-200 hover:-translate-y-0.5 shadow-xs cursor-pointer"
+                  title={copiedEmail ? "Email Copied!" : "Copy Email"}
+                >
+                  {copiedEmail ? (
+                    <Check className="w-4 h-4 text-emerald-500" />
+                  ) : (
+                    <Mail className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+            </div>
 
           </div>
 
-          {/* Right Column: Engineering System Preview Card */}
-          <div className="lg:col-span-5">
-            <div className="relative rounded-2xl border border-border-subtle bg-surface/80 backdrop-blur-xl p-6 shadow-xl space-y-5">
-              {/* Window Bar */}
-              <div className="flex items-center justify-between pb-4 border-b border-border-subtle">
-                <div className="flex items-center gap-2 font-mono text-xs text-foreground-muted">
-                  <Terminal className="w-4 h-4 text-[#19B9EE]" />
-                  <span>system.status // smnahid.dev</span>
+          {/* Right Column: Sleek Code Editor Window */}
+          <div className="lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end items-center">
+            <div className="relative w-full max-w-[500px] rounded-2xl border border-border-subtle bg-[#080D14]/90 dark:bg-[#070B10]/95 backdrop-blur-xl shadow-2xl shadow-black/30 overflow-hidden group transition-all duration-300 hover:border-[#19B9EE]/40">
+
+              {/* Editor Top Bar */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.08] bg-black/40">
+                {/* Traffic lights */}
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-[#FF5F56]/90 inline-block" />
+                  <span className="w-3 h-3 rounded-full bg-[#FFBD2E]/90 inline-block" />
+                  <span className="w-3 h-3 rounded-full bg-[#27C93F]/90 inline-block" />
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                  <span className="font-mono text-[11px] text-emerald-500 font-medium">
-                    ONLINE
-                  </span>
+
+                {/* Tab title */}
+                <div className="flex items-center gap-1.5 font-mono text-xs text-slate-300">
+                  <Code2 className="w-3.5 h-3.5 text-[#19B9EE]" />
+                  <span>smnahid.config.ts</span>
+                </div>
+
+                {/* Copy button */}
+                <button
+                  type="button"
+                  onClick={copyCode}
+                  className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-slate-200 transition-colors"
+                  title="Copy code"
+                  aria-label="Copy code snippet"
+                >
+                  {copiedCode ? (
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  ) : (
+                    <Copy className="w-3.5 h-3.5" />
+                  )}
+                </button>
+              </div>
+
+              {/* Code Content */}
+              <div className="p-4 sm:p-5 font-mono text-xs sm:text-[13px] leading-relaxed overflow-x-auto text-slate-200 select-text">
+                <div className="text-slate-500 italic pb-2">
+                  # Frontend & Full Stack Engineer
+                </div>
+
+                <div className="space-y-1">
+                  <div>
+                    <span className="text-[#F43F5E]">interface</span>{" "}
+                    <span className="text-[#FBBF24]">Engineer</span> {"{"}
+                  </div>
+                  <div className="pl-4 text-slate-400">
+                    name: <span className="text-[#19B9EE]">string</span>;
+                  </div>
+                  <div className="pl-4 text-slate-400">
+                    stack: <span className="text-[#19B9EE]">string[]</span>;
+                  </div>
+                  <div>{"}"}</div>
+
+                  <div className="pt-2">
+                    <span className="text-[#A855F7]">export const</span>{" "}
+                    <span className="text-[#38BDF8]">nahid</span>:{" "}
+                    <span className="text-[#FBBF24]">Engineer</span> = {"{"}
+                  </div>
+                  <div className="pl-4">
+                    <span className="text-slate-400">name:</span>{" "}
+                    <span className="text-[#10B981]">&quot;S.M. Nahid Hasan&quot;</span>,
+                  </div>
+
+                  <div className="pl-4">
+                    <span className="text-slate-400">stack:</span> [
+                    <span className="text-[#10B981]">&quot;Next.js&quot;</span>,{" "}
+                    <span className="text-[#10B981]">&quot;React&quot;</span>,{" "}
+                    <span className="text-[#10B981]">&quot;TypeScript&quot;</span>,
+                    <span className="text-[#10B981]">&quot;Antd&quot;</span>,{" "}
+                    <span className="text-[#10B981]">&quot;Express.js&quot;</span>,{" "}
+                    <span className="text-[#10B981]">&quot;Prisma ORM&quot;</span>,
+                    <span className="text-[#10B981]">&quot;PostgreSQL&quot;</span>,
+                    <span className="text-[#10B981]">&quot;MySQL&quot;</span>],
+
+                  </div>
+
+                  <div className="pl-4">
+                    <span className="text-slate-400">mindset:</span>{" "}
+                    <span className="text-[#10B981]">&quot;Clean Architecture&quot;</span>
+                  </div>
+                  <div>{"};"}</div>
+
+                  <div className="pt-2">
+                    <span className="text-[#A855F7]">export async function</span>{" "}
+                    <span className="text-[#38BDF8]">buildProduct</span>(idea) {"{"}
+                  </div>
+                  <div className="pl-4">
+                    <span className="text-[#A855F7]">return await</span>{" "}
+                    <span className="text-[#FBBF24]">engineer</span>({"{"}
+                  </div>
+                  <div className="pl-8">
+                    <span className="text-slate-400">typeSafety:</span>{" "}
+                    <span className="text-[#10B981]">&quot;Strict&quot;</span>,
+                  </div>
+                  <div className="pl-8">
+                    <span className="text-slate-400">performance:</span>{" "}
+                    <span className="text-[#19B9EE]">100</span>,
+                  </div>
+                  <div className="pl-8">
+                    <span className="text-slate-400">userDelight:</span>{" "}
+                    <span className="text-[#F43F5E]">true</span>
+                  </div>
+                  <div className="pl-4">{"});"}</div>
+                  <div>{"}"}</div>
+                </div>
+
+                {/* Bottom Cursor Indicator */}
+                <div className="pt-3 flex items-center gap-1.5 text-slate-500 text-[11px]">
+                  <span className="w-2 h-3.5 bg-[#19B9EE] inline-block animate-pulse" />
+                  <span>TypeScript 5.0 · React 19 · UTF-8</span>
                 </div>
               </div>
 
-              {/* Telemetry Grid */}
-              <div className="space-y-3 font-mono text-xs">
-                <div className="p-3 rounded-xl bg-surface-raised border border-border-subtle space-y-2">
-                  <div className="flex justify-between text-foreground-muted text-[11px]">
-                    <span className="flex items-center gap-1.5">
-                      <Cpu className="w-3.5 h-3.5 text-[#19B9EE]" />
-                      ARCHITECTURAL DISCIPLINE
-                    </span>
-                    <span className="text-[#19B9EE] font-semibold">100%</span>
-                  </div>
-                  <div className="text-foreground font-sans text-sm font-medium">
-                    Clean Component Boundaries & Strict Type Contracts
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    <span className="px-2 py-0.5 rounded-md bg-surface text-[10px] text-foreground-secondary border border-border-subtle">
-                      App Router
-                    </span>
-                    <span className="px-2 py-0.5 rounded-md bg-surface text-[10px] text-foreground-secondary border border-border-subtle">
-                      Server Components
-                    </span>
-                    <span className="px-2 py-0.5 rounded-md bg-surface text-[10px] text-foreground-secondary border border-border-subtle">
-                      Zod Schemas
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-3 rounded-xl bg-surface-raised border border-border-subtle space-y-2">
-                  <div className="flex justify-between text-foreground-muted text-[11px]">
-                    <span className="flex items-center gap-1.5">
-                      <Layers className="w-3.5 h-3.5 text-[#19B9EE]" />
-                      FLAGSHIP SYSTEM
-                    </span>
-                    <span className="text-foreground-secondary">EdTech AI</span>
-                  </div>
-                  <div className="text-foreground font-sans text-sm font-medium">
-                    MULYAYON: Academic Assessment Intelligence
-                  </div>
-                  <p className="text-[11px] text-foreground-muted font-sans line-clamp-2">
-                    Automated rubric-aligned grading engine with educator review pipelines.
-                  </p>
-                </div>
-
-                <div className="p-3 rounded-xl bg-surface-raised border border-border-subtle flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#19B9EE]" />
-                    <span className="text-foreground font-sans text-xs">
-                      Academic Distinction
-                    </span>
-                  </div>
-                  <span className="font-mono text-xs text-[#19B9EE] font-semibold">
-                    SGPA 4.00 / 4.00
-                  </span>
-                </div>
-              </div>
-
-              {/* Philosophy Quote */}
-              <div className="p-3.5 rounded-xl bg-accent-cyan-subtle border border-accent-cyan-border text-xs text-foreground-secondary leading-relaxed">
-                <span className="text-[#19B9EE] font-mono font-semibold mr-1.5">
-                  &gt;
-                </span>
-                &quot;Simple to use, thoughtful in architecture, reliable in production.&quot;
-              </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
   );
 }
+
+

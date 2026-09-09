@@ -9,23 +9,36 @@ export interface TechnologyItem {
 
 export interface ProjectItem {
   id: string;
+  slug: string;
   number: string;
   title: string;
+  subtitle: string;
   tagline: string;
   category: string;
   featured: boolean;
+  coverImage: string;
+  description: string;
   overview: string;
   problem: string;
   solution: string;
   role: string;
   stack: string[];
+  technologies: string[];
   features: string[];
   architecturePoints: string[];
   liveUrl?: string;
+  clientRepoUrl?: string;
+  serverRepoUrl?: string;
   githubUrl?: string;
+  caseStudy?: boolean;
+  howItWorks?: { step: string; title: string; description: string }[];
+  engineeringDecisions?: { title: string; rationale: string }[];
+  outcome?: string;
   metrics?: { label: string; value: string }[];
   image: string;
 }
+
+export type Project = ProjectItem;
 
 export interface ExperienceItem {
   id: string;
@@ -83,50 +96,44 @@ export const STACK_CATEGORIES: StackCategory[] = [
     number: "01",
     title: "Frontend",
     icon: "PanelsTopLeft",
-    technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Radix UI", "Motion", "React Hook Form", "Zod", "TanStack Table", "Recharts"]
+    technologies: ["React", "Next.js", "Redux Toolkit", "Tailwind CSS", "shadcn/ui", "Radix UI"]
   },
   {
     id: "backend",
     number: "02",
     title: "Backend",
     icon: "Server",
-    technologies: ["Node.js", "Express", "REST APIs"]
+    technologies: ["Node.js", "Express", "REST APIs",]
   },
   {
     id: "database",
     number: "03",
     title: "Database",
     icon: "Database",
-    technologies: ["PostgreSQL", "MongoDB", "Prisma"]
+    technologies: ["PostgreSQL", "MongoDB", "Prisma ORM"]
   },
   {
     id: "languages",
     number: "04",
     title: "Programming Languages",
     icon: "Code2",
-    technologies: ["TypeScript", "JavaScript", "HTML", "CSS"]
+    technologies: ["TypeScript", "JavaScript", "C", "C++"]
   },
   {
     id: "devops",
     number: "05",
     title: "DevOps & Tools",
     icon: "GitBranch",
-    technologies: ["Git", "GitHub", "Vercel", "Vite", "ESLint"]
+    technologies: ["Git", "GitHub", "Vercel", "Vite", "ESLint", "Postman"]
   },
   {
     id: "cms",
     number: "06",
     title: "CMS",
     icon: "LayoutTemplate",
-    technologies: ["Squarespace", "Shopify", "Wix"]
+    technologies: ["Squarespace", "Shopify"]
   },
-  {
-    id: "platforms",
-    number: "07",
-    title: "Platforms",
-    icon: "Globe",
-    technologies: ["Vercel", "GitHub", "Google Cloud"]
-  }
+
 ];
 
 export const PERSONAL_INFO = {
@@ -388,19 +395,50 @@ export const TECHNOLOGIES: TechnologyItem[] = [
   }
 ];
 
-export const PROJECTS: ProjectItem[] = [
+export const PROJECTS: Project[] = [
   {
     id: "mulyayon",
+    slug: "mulyayon",
     number: "01",
     title: "MULYAYON",
+    subtitle: "AI-Powered Assessment & Academic Evaluation Platform",
     tagline: "AI-Powered Assessment & Academic Evaluation Platform",
     category: "EdTech & Full Stack AI Platform",
     featured: true,
-    overview: "A comprehensive assessment intelligence platform engineered to modernize academic evaluation for Bangladesh's educational ecosystem. MULYAYON streamlines exam creation, automated rubric-aligned grading, teacher review workflows, and deep student performance analytics.",
-    problem: "Traditional academic assessment in large classroom settings is plagued by manual grading delays, inconsistent evaluation criteria, and a lack of granular actionable feedback for students and institutional leadership.",
-    solution: "Architected an end-to-end evaluation engine utilizing Next.js, Express, and PostgreSQL with an integrated AI evaluation pipeline. Teachers upload student scripts or assessments, receive rubric-calibrated AI draft grading with line-by-line feedback, and review/override decisions via an ergonomic grading dashboard.",
-    role: "Lead Full Stack & Frontend Architect — Designed complete UI system, server action workflows, database schema with Prisma, and AI inference integration pipelines.",
-    stack: ["Next.js", "TypeScript", "Express", "PostgreSQL", "Prisma", "AI Inference", "Tailwind CSS", "shadcn/ui", "React Hook Form", "Zod", "Recharts"],
+    coverImage: "/mulyayon_cover.png",
+    image: "/mulyayon_cover.png",
+    description:
+      "An AI-powered assessment platform designed to help educators evaluate assignments, review answers, provide rubric-calibrated feedback, and track student performance across academic institutions.",
+    overview:
+      "A comprehensive assessment intelligence platform engineered to modernize academic evaluation for Bangladesh's educational ecosystem. MULYAYON streamlines exam creation, automated rubric-aligned grading, teacher review workflows, and deep student performance analytics.",
+    problem:
+      "Traditional academic assessment in large classroom settings is plagued by manual grading delays, inconsistent evaluation criteria, and a lack of granular actionable feedback for students and institutional leadership.",
+    solution:
+      "Architected an end-to-end evaluation engine utilizing Next.js, Express, and PostgreSQL with an integrated AI evaluation pipeline. Teachers upload student scripts or assessments, receive rubric-calibrated AI draft grading with line-by-line feedback, and review/override decisions via an ergonomic grading dashboard.",
+    role: "Full Stack / Frontend Architect",
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "React",
+      "Express",
+      "PostgreSQL",
+      "Prisma",
+      "AI"
+    ],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "React",
+      "Express",
+      "PostgreSQL",
+      "Prisma",
+      "AI Inference",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "React Hook Form",
+      "Zod",
+      "Recharts"
+    ],
     features: [
       "AI-Assisted Assessment: Rubric-based script evaluation with instant feedback generation",
       "Teacher Review Workflow: Side-by-side rubric verification with real-time score adjustment",
@@ -415,101 +453,56 @@ export const PROJECTS: ProjectItem[] = [
       "Optimistic UI updates for high-speed grading interactions with background synchronization",
       "Strict runtime validation via Zod across all API endpoints and client submission forms"
     ],
-    metrics: [
-      { label: "Grading Efficiency", value: "65% faster" },
-      { label: "Feedback Granularity", value: "Line-by-line" },
-      { label: "Type Coverage", value: "100% Strict TS" },
-      { label: "Design System", value: "Custom shadcn" }
+    howItWorks: [
+      {
+        step: "01",
+        title: "Assessment & Rubric Ingestion",
+        description:
+          "Faculty configure course rubrics, grading criteria, and acceptable score ranges tailored to curricular guidelines."
+      },
+      {
+        step: "02",
+        title: "Script Processing & AI Evaluation",
+        description:
+          "Student submissions are processed through the inference pipeline to generate provisional line-by-line marks and constructive feedback."
+      },
+      {
+        step: "03",
+        title: "Educator Review & Calibration",
+        description:
+          "Teachers review AI recommendations on an ergonomic grading console, with full override control and manual commentary adjustment."
+      },
+      {
+        step: "04",
+        title: "Analytics & Performance Reporting",
+        description:
+          "Aggregated performance trends, common error patterns, and individual mastery distributions are exported for institutional oversight."
+      }
     ],
-    image: "/projects/mulyayon-preview.webp",
+    engineeringDecisions: [
+      {
+        title: "Next.js App Router for Front Office",
+        rationale:
+          "Utilized React Server Components for near-zero client bundle overhead on data-heavy dashboards, paired with client boundaries for optimistic grading actions."
+      },
+      {
+        title: "Decoupled Express AI Worker",
+        rationale:
+          "Separated compute-heavy LLM evaluation queues from the primary web server to guarantee low-latency HTTP responses during batch grading sessions."
+      },
+      {
+        title: "Prisma ORM with PostgreSQL",
+        rationale:
+          "Enforced database-level referential integrity across submissions, rubrics, and grade modifications with full TypeScript type safety across queries."
+      }
+    ],
+    outcome:
+      "Active production deployment running at mulyayon.vercel.app, modernizing script review cycles and providing instructors with rubric-aligned grading intelligence.",
     liveUrl: "https://mulyayon.vercel.app",
-    githubUrl: "https://github.com/smnahid/mulyayon"
-  },
-  {
-    id: "devflow-hub",
-    number: "02",
-    title: "DevFlow Hub",
-    tagline: "Developer Workflow & Engineering Knowledge Engine",
-    category: "Productivity & Developer Tooling",
-    featured: false,
-    overview: "A focused collaborative workspace and knowledge base built for software engineering teams to manage technical documentation, architecture decision records (ADRs), and sprint deliverables in one unified hub.",
-    problem: "Engineering knowledge often gets fragmented across disparate chat threads, outdated wikis, and issue trackers, causing friction during onboarding and architectural reviews.",
-    solution: "Built a Markdown-native collaborative platform featuring live AST rendering, tag-based schema querying, and structured sprint decision tracking with seamless Git integration.",
-    role: "Full Stack Engineer — Engineered real-time document sync, markdown parser integration, and database indexing.",
-    stack: ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "Prisma", "Tailwind CSS", "Lucide"],
-    features: [
-      "Instant AST Markdown engine with syntax highlighting and LaTeX support",
-      "Architecture Decision Record (ADR) lifecycle manager (Draft → Review → Accepted)",
-      "Role-based workspace scoping with audit trails and revision histories",
-      "Fast full-text search across all engineering documentation"
-    ],
-    architecturePoints: [
-      "Optimized database indexing for sub-10ms full-text documentation search queries",
-      "Client-side caching with SWR for instantaneous navigation between workspace nodes"
-    ],
-    metrics: [
-      { label: "Search Latency", value: "<15ms" },
-      { label: "Lighthouse Score", value: "98/100" }
-    ],
-    image: "/projects/devflow-preview.webp",
-    githubUrl: "https://github.com/smnahid/devflow-hub"
-  },
-  {
-    id: "zenith-commerce",
-    number: "03",
-    title: "Zenith Commerce",
-    tagline: "High-Performance Modular E-Commerce Storefront",
-    category: "Full Stack Web Application",
-    featured: false,
-    overview: "A lightweight, headless e-commerce experience designed for instant page transitions, dynamic inventory synchronization, and frictionless checkout flows with modern UI polish.",
-    problem: "Heavy legacy e-commerce templates suffer from slow time-to-interactive (TTI), bloated bundle sizes, and poor mobile checkout conversion rates.",
-    solution: "Crafted a headless storefront utilizing Next.js Server Components for zero-bundle product catalog rendering, paired with resilient client-side state for the shopping bag and checkout validation.",
-    role: "Frontend & API Engineer — Built the reactive cart engine, product filtering architecture, and payment gateway integration.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Express", "MongoDB", "Zod", "Framer Motion"],
-    features: [
-      "Instant faceted search and multi-criteria product filtering with URL state synchronization",
-      "Optimistic cart operations with persistent local cache and server validation",
-      "Streamlined multi-step checkout form with robust Zod client & server validation",
-      "Mobile-first responsive drawer navigation and thumb-friendly checkout actions"
-    ],
-    architecturePoints: [
-      "Streaming server-side rendering for catalog pages with granular suspense boundaries",
-      "Atomic design system with reusable UI tokens for effortless white-label theming"
-    ],
-    metrics: [
-      { label: "Core Web Vitals", value: "100% Green" },
-      { label: "Bundle Size", value: "<45kB Initial" }
-    ],
-    image: "/projects/zenith-preview.webp",
-    githubUrl: "https://github.com/smnahid/zenith-commerce"
-  },
-  {
-    id: "apex-ui",
-    number: "04",
-    title: "Apex UI System",
-    tagline: "Accessible Design Tokens & React Component Primitives",
-    category: "Design System & Open Source",
-    featured: false,
-    overview: "An enterprise-grade, accessible React component library crafted with Radix UI primitives and Tailwind CSS. Built to enforce consistent design tokens, dark/light theme switching, and strict keyboard navigation.",
-    problem: "Inconsistent UI patterns across projects lead to fragmented user experiences and redundant styling code duplication.",
-    solution: "Created a centralized component system with zero accessibility compromises, comprehensive TypeScript prop types, and custom theming variables.",
-    role: "Author & Maintainer — Engineered all component primitives, theme token engine, and documentation site.",
-    stack: ["React", "TypeScript", "Radix UI", "Tailwind CSS", "Framer Motion"],
-    features: [
-      "35+ accessible components adhering strictly to WAI-ARIA authoring practices",
-      "Seamless light, dark, and system theme token switching without layout shifts",
-      "Compound component APIs with intuitive DX and full TypeScript autocompletion"
-    ],
-    architecturePoints: [
-      "Zero-dependency core layer decoupling style tokens from behavior primitives",
-      "Tree-shakeable export structure ensuring minimal bundle footprint"
-    ],
-    metrics: [
-      { label: "Accessibility", value: "WCAG AAA" },
-      { label: "Component Count", value: "35+ Primitives" }
-    ],
-    image: "/projects/apex-preview.webp",
-    githubUrl: "https://github.com/smnahid/apex-ui-system"
+    clientRepoUrl: "https://github.com/smnahid/mulyayon",
+    serverRepoUrl: "https://github.com/smnahid/mulyayon-server",
+    githubUrl: "https://github.com/smnahid/mulyayon",
+    caseStudy: true
   }
 ];
 
@@ -687,10 +680,10 @@ export const GITHUB_METRICS = {
 export const NAVIGATION_LINKS = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
-  { name: "Experience", href: "#experience" },
+
   { name: "Education", href: "#education" },
-  { name: "Engineering", href: "#engineering" },
+  { name: "Skills", href: "#engineering" },
   { name: "Projects", href: "#projects" },
-  { name: "GitHub", href: "#github" },
+
   { name: "Contact", href: "#contact" }
 ];

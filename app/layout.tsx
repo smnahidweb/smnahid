@@ -7,7 +7,8 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
+  preload: true,
 });
 
 const inter = Inter({

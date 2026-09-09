@@ -102,9 +102,7 @@ export function Footer() {
 
             <div className="flex flex-col md:items-end text-xs font-mono text-foreground-muted space-y-1">
               <p>© {new Date().getFullYear()} S.M. Nahid Hasan. All rights reserved.</p>
-              <p className="text-[11px] text-foreground-subtle flex items-center gap-1">
-                Built with Next.js, TypeScript, Tailwind CSS & Motion
-              </p>
+
             </div>
           </div>
         </div>

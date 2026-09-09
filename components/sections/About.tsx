@@ -53,10 +53,8 @@ export function About() {
                   <span className="font-medium text-foreground tracking-tight">
                     {PERSONAL_INFO.name.toUpperCase()}
                   </span>
-                  <span className="flex items-center gap-1.5 text-foreground-subtle">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    <span>DHAKA, BD</span>
-                  </span>
+
+
                 </div>
               </div>
 

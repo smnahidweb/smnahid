@@ -40,14 +40,16 @@ export function Navbar() {
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
-    e.preventDefault();
     setMobileMenuOpen(false);
     const targetId = href.replace("#", "");
     const targetEl = document.getElementById(targetId);
     if (targetEl) {
+      e.preventDefault();
       targetEl.scrollIntoView({ behavior: "smooth" });
       history.pushState(null, "", href);
       setActiveSection(targetId);
+    } else {
+      window.location.href = "/" + href;
     }
   };
 

@@ -498,10 +498,141 @@ export const PROJECTS: Project[] = [
     ],
     outcome:
       "Active production deployment running at mulyayon.vercel.app, modernizing script review cycles and providing instructors with rubric-aligned grading intelligence.",
-    liveUrl: "https://mulyayon.vercel.app",
+    liveUrl: "https://mulyayon-eta.vercel.app",
     clientRepoUrl: "https://github.com/smnahid/mulyayon",
     serverRepoUrl: "https://github.com/smnahid/mulyayon-server",
     githubUrl: "https://github.com/smnahid/mulyayon",
+    caseStudy: true
+  },
+  {
+    id: "varendra-technologies",
+    slug: "varendra-technologies",
+    number: "02",
+    title: "Varendra Technologies",
+    subtitle: "Technology Company & Digital Product Platform",
+    tagline: "A modern digital platform for a technology company serving businesses in Bangladesh and global markets.",
+    category: "Technology & Digital Solutions",
+    featured: true,
+    coverImage: "/varendra_technologies_cover.png",
+    image: "/varendra_technologies_cover.png",
+
+    description:
+      "A modern, performance-focused corporate website and digital platform built for Varendra Technologies to establish its brand, showcase technology services, present digital products, and connect with businesses across Bangladesh and global markets.",
+
+    overview:
+      "Designed and engineered as the primary digital presence for Varendra Technologies, the platform combines a premium visual identity with a structured service architecture, case studies, product initiatives, insights, and conversion-focused project inquiries. The experience is built to communicate technical credibility while remaining approachable for businesses, startups, entrepreneurs, and organizations.",
+
+    problem:
+      "An early-stage technology company needs more than a conventional corporate website. The platform needed to communicate technical capability, establish trust, clearly explain complex services, showcase work, support international positioning, and provide a strong foundation for future products and business growth.",
+
+    solution:
+      "Designed and developed a complete digital presence around a modular Next.js architecture. The platform presents Varendra Technologies' services, case studies, product initiatives, company story, technology capabilities, insights, careers, and project inquiry experience through a cohesive responsive interface optimized for performance, accessibility, SEO, and long-term scalability.",
+
+    role: "Founder / Full Stack Developer",
+
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "React",
+      "Tailwind CSS",
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "Vercel"
+    ],
+
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "React",
+      "Tailwind CSS",
+      "App Router",
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "REST APIs",
+      "Vercel",
+      "SEO",
+      "Structured Data",
+      "Google Analytics"
+    ],
+
+    features: [
+      "Strategic Corporate Experience: A premium digital presence designed around the company's technology-first positioning",
+      "Service Architecture: Structured presentation of software development, web applications, SaaS, CMS, e-commerce, UI/UX, and technology consulting services",
+      "Case Study System: Reusable project presentation architecture for showcasing technical work and business outcomes",
+      "Product Showcase: Dedicated product and SaaS initiative experience for future Varendra Technologies products",
+      "Project Inquiry Workflow: Guided contact experience designed to capture project requirements and qualify potential clients",
+      "SEO-Ready Architecture: Semantic page structure, metadata, sitemap, robots configuration, structured data, and indexation-focused foundations",
+      "Responsive Experience: Carefully engineered layouts across mobile, tablet, laptop, and desktop devices",
+      "Performance-Focused Frontend: Modern React and Next.js architecture optimized for fast loading and scalable content"
+    ],
+
+    architecturePoints: [
+      "Next.js App Router architecture with reusable components and modular page structures",
+      "TypeScript-first development for maintainable and type-safe frontend architecture",
+      "Tailwind CSS-based design system built around the Varendra Technologies brand language",
+      "Express and PostgreSQL foundation for future application and business workflow integrations",
+      "Vercel deployment infrastructure with production-focused performance optimization",
+      "SEO architecture including metadata, sitemap, robots configuration, structured data, and canonical foundations"
+    ],
+
+    howItWorks: [
+      {
+        step: "01",
+        title: "Discover & Position",
+        description:
+          "The platform introduces Varendra Technologies, its vision, capabilities, and technology philosophy while establishing a clear business-first positioning."
+      },
+      {
+        step: "02",
+        title: "Explore Capabilities",
+        description:
+          "Visitors can explore specialized services including software development, web applications, SaaS, CMS, e-commerce, UI/UX, and technology consulting."
+      },
+      {
+        step: "03",
+        title: "Evaluate The Work",
+        description:
+          "Case studies, product initiatives, technology capabilities, and insights provide deeper context around the company's engineering approach and expertise."
+      },
+      {
+        step: "04",
+        title: "Start A Project",
+        description:
+          "A structured project inquiry experience guides potential clients from their initial idea or business challenge toward a relevant technical conversation."
+      }
+    ],
+
+    engineeringDecisions: [
+      {
+        title: "Next.js App Router Architecture",
+        rationale:
+          "Selected Next.js App Router to provide a modern foundation for server-rendered content, scalable routing, strong SEO foundations, and a maintainable component architecture."
+      },
+      {
+        title: "Content-Driven Modular Architecture",
+        rationale:
+          "Designed reusable structures for services, case studies, products, insights, and other content so the platform can expand without requiring major architectural changes."
+      },
+      {
+        title: "Performance & SEO First",
+        rationale:
+          "The platform was engineered with semantic markup, metadata, structured data, sitemap generation, responsive rendering, and performance optimization as core requirements rather than post-launch additions."
+      }
+    ],
+
+    outcome:
+      "Established Varendra Technologies' primary digital presence with a scalable platform for presenting its services, technology capabilities, products, case studies, and business vision to clients in Bangladesh and international markets.",
+
+    liveUrl: "https://www.varendratech.com",
+
+    clientRepoUrl: "https://github.com/smnahid/varendra-technologies",
+
+    serverRepoUrl: "https://github.com/smnahid/varendra-technologies-server",
+
+    githubUrl: "https://github.com/smnahid/varendra-technologies",
+
     caseStudy: true
   }
 ];

@@ -183,6 +183,20 @@ export function Projects() {
                       <span className="text-[#19B9EE] font-medium">{p.number}</span>
                       <span>{p.category}</span>
                     </div>
+                    <div
+                      className="w-full aspect-video rounded-lg bg-surface-raised border border-border-subtle overflow-hidden"
+                      style={{ aspectRatio: "16 / 9" }}
+                    >
+                      <Image
+                        src={p.coverImage}
+                        alt={p.title}
+                        width={1200}
+                        height={675}
+                        priority
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
                     <h5 className="font-heading text-xl font-bold text-foreground transition-colors">
                       {p.title}
                     </h5>

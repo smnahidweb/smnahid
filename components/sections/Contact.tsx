@@ -7,15 +7,7 @@ import * as z from "zod";
 import { PERSONAL_INFO } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
-import {
-  Mail,
-  Copy,
-  Check,
-  Send,
-  ArrowUpRight,
-  MessageSquare,
-  Sparkles,
-} from "lucide-react";
+import { Mail, Copy, Check, Send, ArrowUpRight } from "lucide-react";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -46,10 +38,9 @@ export function Contact() {
   };
 
   const onSubmit = async (data: ContactFormData) => {
-    // Form submission action
     await new Promise((resolve) => setTimeout(resolve, 800));
     const mailtoUrl = `mailto:${PERSONAL_INFO.email}?subject=${encodeURIComponent(
-      `[Portfolio Inquiry] ${data.subject}`
+      `[Portfolio] ${data.subject}`
     )}&body=${encodeURIComponent(
       `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
     )}`;
@@ -59,124 +50,91 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28 border-t border-border-subtle bg-surface/30">
+    <section id="contact" className="py-20 md:py-28 border-t border-border-subtle">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           number="07"
-          eyebrow="Initiate Conversation"
-          title="Let's build something useful."
-          description="Whether you're engineering a new product, scaling a frontend architecture, or looking for an engineer to join your team, I'm ready to connect."
+          eyebrow="Get in touch"
+          title="Let's work together."
+          description="Have a project in mind or just want to say hello? I'd love to hear from you."
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Direct Communication Cards */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="p-6 sm:p-8 rounded-2xl bg-surface border border-border-subtle shadow-sm space-y-6">
-              <div>
-                <span className="font-mono text-xs uppercase tracking-wider text-[#19B9EE] font-semibold">
-                  DIRECT CONTACT
-                </span>
-                <h3 className="text-xl font-heading font-bold text-foreground mt-1">
-                  Connect Directly
-                </h3>
-                <p className="text-xs text-foreground-secondary mt-1 leading-relaxed">
-                  I typically respond within 24 hours. Feel free to copy my direct email or connect through LinkedIn.
-                </p>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
 
-              {/* Email Copy Card */}
-              <div className="p-4 rounded-xl bg-surface-raised border border-border-subtle space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[11px] text-foreground-muted">
-                    PRIMARY INBOX
+          {/* Left: Info */}
+          <div className="lg:col-span-4 space-y-8">
+            {/* Email */}
+            <div>
+              <p className="text-sm text-foreground-muted mb-3">Email me directly</p>
+              <div className="flex items-center justify-between p-4 rounded-xl bg-surface border border-border-subtle">
+                <div className="flex items-center gap-3">
+                  <Mail className="w-4 h-4 text-[#19B9EE] shrink-0" />
+                  <span className="font-mono text-sm text-foreground select-all">
+                    {PERSONAL_INFO.email}
                   </span>
-                  <button
-                    onClick={copyEmail}
-                    className="inline-flex items-center gap-1 font-mono text-xs text-[#19B9EE] hover:underline cursor-pointer"
-                  >
-                    {copied ? (
-                      <>
-                        <Check className="w-3.5 h-3.5 text-emerald-500" />
-                        <span className="text-emerald-500 font-semibold">
-                          Copied!
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-3.5 h-3.5" />
-                        <span>Copy Address</span>
-                      </>
-                    )}
-                  </button>
                 </div>
-                <p className="font-mono text-xs sm:text-sm font-semibold text-foreground select-all">
-                  {PERSONAL_INFO.email}
-                </p>
+                <button
+                  onClick={copyEmail}
+                  className="ml-3 p-1.5 rounded-lg text-foreground-muted hover:text-foreground hover:bg-surface-raised transition-colors cursor-pointer"
+                  aria-label="Copy email"
+                >
+                  {copied ? (
+                    <Check className="w-3.5 h-3.5 text-emerald-500" />
+                  ) : (
+                    <Copy className="w-3.5 h-3.5" />
+                  )}
+                </button>
               </div>
+            </div>
 
-              {/* Social Channels */}
-              <div className="space-y-2.5">
+            {/* Socials */}
+            <div>
+              <p className="text-sm text-foreground-muted mb-3">Find me online</p>
+              <div className="space-y-2">
                 <a
                   href={PERSONAL_INFO.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3.5 rounded-xl bg-surface-raised border border-border-subtle hover:border-[#19B9EE]/50 text-foreground-secondary hover:text-foreground transition-colors"
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-surface border border-border-subtle hover:border-[#19B9EE]/40 text-foreground-secondary hover:text-foreground transition-colors group"
                 >
-                  <div className="flex items-center gap-2.5 font-mono text-xs">
+                  <div className="flex items-center gap-2.5 text-sm">
                     <LinkedinIcon className="w-4 h-4 text-[#19B9EE]" />
-                    <span>LinkedIn / in/smnahid</span>
+                    <span>LinkedIn</span>
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-foreground-muted" />
+                  <ArrowUpRight className="w-4 h-4 text-foreground-muted group-hover:text-foreground transition-colors" />
                 </a>
 
                 <a
                   href={PERSONAL_INFO.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3.5 rounded-xl bg-surface-raised border border-border-subtle hover:border-[#19B9EE]/50 text-foreground-secondary hover:text-foreground transition-colors"
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-surface border border-border-subtle hover:border-[#19B9EE]/40 text-foreground-secondary hover:text-foreground transition-colors group"
                 >
-                  <div className="flex items-center gap-2.5 font-mono text-xs">
+                  <div className="flex items-center gap-2.5 text-sm">
                     <GithubIcon className="w-4 h-4 text-[#19B9EE]" />
-                    <span>GitHub / smnahid</span>
+                    <span>GitHub</span>
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-foreground-muted" />
+                  <ArrowUpRight className="w-4 h-4 text-foreground-muted group-hover:text-foreground transition-colors" />
                 </a>
               </div>
+            </div>
 
-              {/* Availability Note */}
-              <div className="pt-4 border-t border-border-subtle flex items-center gap-2 font-mono text-xs text-foreground-muted">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Status: Available for Full-Time & Select Contract Roles</span>
-              </div>
+            {/* Availability */}
+            <div className="flex items-center gap-2 text-sm text-foreground-muted">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+              <span>Open to full-time &amp; contract work</span>
             </div>
           </div>
 
-          {/* Right Column: Interactive Contact Form */}
-          <div className="lg:col-span-7">
-            <div className="p-6 sm:p-8 rounded-2xl bg-surface border border-border-subtle shadow-sm space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-border-subtle">
-                <div>
-                  <span className="font-mono text-xs uppercase tracking-wider text-[#19B9EE] font-semibold">
-                    MESSAGE DISPATCH
-                  </span>
-                  <h3 className="text-xl font-heading font-bold text-foreground mt-1">
-                    Send a Message
-                  </h3>
-                </div>
-                <MessageSquare className="w-5 h-5 text-foreground-muted" />
-              </div>
-
+          {/* Right: Form */}
+          <div className="lg:col-span-8">
+            <div className="p-6 sm:p-8 rounded-2xl bg-surface border border-border-subtle shadow-sm">
               {submitted && (
-                <div className="p-4 rounded-xl bg-accent-cyan-subtle border border-accent-cyan-border text-xs sm:text-sm text-foreground space-y-1 animate-in fade-in duration-200">
-                  <p className="font-semibold text-[#19B9EE] flex items-center gap-1.5">
-                    <Sparkles className="w-4 h-4" />
-                    Message prepared in your default mail client!
-                  </p>
-                  <p className="text-foreground-secondary">
-                    If your email app didn&apos;t open automatically, you can also write to{" "}
-                    <span className="font-mono text-foreground font-medium">
-                      {PERSONAL_INFO.email}
-                    </span>
+                <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-sm text-foreground">
+                  <p className="font-medium text-emerald-500 mb-1">Message ready!</p>
+                  <p className="text-foreground-muted">
+                    Your default email app should have opened. If not, write to{" "}
+                    <span className="font-mono text-foreground">{PERSONAL_INFO.email}</span>
                   </p>
                 </div>
               )}
@@ -186,52 +144,48 @@ export function Contact() {
                   {/* Name */}
                   <div className="space-y-1.5">
                     <label
-                      htmlFor="name"
-                      className="block font-mono text-xs text-foreground-muted uppercase tracking-wider"
+                      htmlFor="contact-name"
+                      className="block text-sm text-foreground-secondary"
                     >
-                      Your Name *
+                      Your name
                     </label>
                     <input
-                      id="name"
+                      id="contact-name"
                       type="text"
                       placeholder="Jane Doe"
                       {...register("name")}
-                      className={`w-full px-4 py-2.5 rounded-xl bg-surface-raised border text-sm text-foreground focus:outline-hidden focus:ring-2 focus:ring-[#19B9EE] transition-colors ${
+                      className={`w-full px-4 py-2.5 rounded-xl bg-surface-raised border text-sm text-foreground placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-[#19B9EE]/50 transition-colors ${
                         errors.name
-                          ? "border-rose-500 ring-1 ring-rose-500/20"
+                          ? "border-rose-500"
                           : "border-border-subtle focus:border-[#19B9EE]"
                       }`}
                     />
                     {errors.name && (
-                      <p className="text-xs font-mono text-rose-500">
-                        {errors.name.message}
-                      </p>
+                      <p className="text-xs text-rose-500">{errors.name.message}</p>
                     )}
                   </div>
 
                   {/* Email */}
                   <div className="space-y-1.5">
                     <label
-                      htmlFor="email"
-                      className="block font-mono text-xs text-foreground-muted uppercase tracking-wider"
+                      htmlFor="contact-email"
+                      className="block text-sm text-foreground-secondary"
                     >
-                      Your Email *
+                      Your email
                     </label>
                     <input
-                      id="email"
+                      id="contact-email"
                       type="email"
                       placeholder="jane@company.com"
                       {...register("email")}
-                      className={`w-full px-4 py-2.5 rounded-xl bg-surface-raised border text-sm text-foreground focus:outline-hidden focus:ring-2 focus:ring-[#19B9EE] transition-colors ${
+                      className={`w-full px-4 py-2.5 rounded-xl bg-surface-raised border text-sm text-foreground placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-[#19B9EE]/50 transition-colors ${
                         errors.email
-                          ? "border-rose-500 ring-1 ring-rose-500/20"
+                          ? "border-rose-500"
                           : "border-border-subtle focus:border-[#19B9EE]"
                       }`}
                     />
                     {errors.email && (
-                      <p className="text-xs font-mono text-rose-500">
-                        {errors.email.message}
-                      </p>
+                      <p className="text-xs text-rose-500">{errors.email.message}</p>
                     )}
                   </div>
                 </div>
@@ -239,67 +193,64 @@ export function Contact() {
                 {/* Subject */}
                 <div className="space-y-1.5">
                   <label
-                    htmlFor="subject"
-                    className="block font-mono text-xs text-foreground-muted uppercase tracking-wider"
+                    htmlFor="contact-subject"
+                    className="block text-sm text-foreground-secondary"
                   >
-                    Subject / Project Context *
+                    Subject
                   </label>
                   <input
-                    id="subject"
+                    id="contact-subject"
                     type="text"
-                    placeholder="Engineering Role / Web Application Build"
+                    placeholder="What's this about?"
                     {...register("subject")}
-                    className={`w-full px-4 py-2.5 rounded-xl bg-surface-raised border text-sm text-foreground focus:outline-hidden focus:ring-2 focus:ring-[#19B9EE] transition-colors ${
+                    className={`w-full px-4 py-2.5 rounded-xl bg-surface-raised border text-sm text-foreground placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-[#19B9EE]/50 transition-colors ${
                       errors.subject
-                        ? "border-rose-500 ring-1 ring-rose-500/20"
+                        ? "border-rose-500"
                         : "border-border-subtle focus:border-[#19B9EE]"
                     }`}
                   />
                   {errors.subject && (
-                    <p className="text-xs font-mono text-rose-500">
-                      {errors.subject.message}
-                    </p>
+                    <p className="text-xs text-rose-500">{errors.subject.message}</p>
                   )}
                 </div>
 
                 {/* Message */}
                 <div className="space-y-1.5">
                   <label
-                    htmlFor="message"
-                    className="block font-mono text-xs text-foreground-muted uppercase tracking-wider"
+                    htmlFor="contact-message"
+                    className="block text-sm text-foreground-secondary"
                   >
-                    Message *
+                    Message
                   </label>
                   <textarea
-                    id="message"
-                    rows={4}
-                    placeholder="Describe your project, team requirements, or collaboration idea..."
+                    id="contact-message"
+                    rows={5}
+                    placeholder="Tell me about your project or what you're looking for..."
                     {...register("message")}
-                    className={`w-full px-4 py-2.5 rounded-xl bg-surface-raised border text-sm text-foreground focus:outline-hidden focus:ring-2 focus:ring-[#19B9EE] transition-colors resize-none ${
+                    className={`w-full px-4 py-2.5 rounded-xl bg-surface-raised border text-sm text-foreground placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-[#19B9EE]/50 transition-colors resize-none ${
                       errors.message
-                        ? "border-rose-500 ring-1 ring-rose-500/20"
+                        ? "border-rose-500"
                         : "border-border-subtle focus:border-[#19B9EE]"
                     }`}
                   />
                   {errors.message && (
-                    <p className="text-xs font-mono text-rose-500">
-                      {errors.message.message}
-                    </p>
+                    <p className="text-xs text-rose-500">{errors.message.message}</p>
                   )}
                 </div>
 
-                {/* Submit Button */}
+                {/* Submit */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 rounded-xl font-mono text-xs font-semibold bg-[#19B9EE] text-[#05070A] hover:bg-[#38C8F5] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-[#19B9EE]/20 disabled:opacity-50"
+                  className="w-full py-3 rounded-xl text-sm font-semibold bg-[#19B9EE] text-[#05070A] hover:bg-[#38C8F5] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-[#19B9EE]/20 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>{isSubmitting ? "Dispatching..." : "Send Message"}</span>
+                  <Send className="w-4 h-4" />
+                  <span>{isSubmitting ? "Sending..." : "Send message"}</span>
                 </button>
               </form>
             </div>
           </div>
+
         </div>
       </div>
     </section>

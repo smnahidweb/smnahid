@@ -103,6 +103,10 @@ export async function buildProduct(requirements: Problem) {
     <section
       id="home"
       className="relative min-h-[100vh] flex flex-col justify-center pt-28 sm:pt-32 pb-16 lg:pb-24 overflow-hidden bg-tech-grid"
+      style={{
+        background:
+          "radial-gradient(ellipse 80% 60% at 10% 20%, hsla(195, 80%, 55%, 0.07) 0%, transparent 65%), radial-gradient(ellipse 60% 50% at 90% 80%, hsla(250, 70%, 60%, 0.05) 0%, transparent 60%)",
+      }}
     >
       {/* Subtle atmospheric glow */}
       <div
@@ -251,7 +255,7 @@ export async function buildProduct(requirements: Problem) {
               {/* Code Content */}
               <div className="p-4 sm:p-5 font-mono text-xs sm:text-[13px] leading-relaxed overflow-x-auto text-slate-200 select-text">
                 <div className="text-slate-500 italic pb-2">
-                  # Frontend & Full Stack Engineer
+                  # Full Stack Developer
                 </div>
 
                 <div className="space-y-1">

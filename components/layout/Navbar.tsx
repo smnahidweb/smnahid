@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { NAVIGATION_LINKS, PERSONAL_INFO } from "@/lib/data";
-import { Menu, X, ArrowUpRight, Terminal } from "lucide-react";
+import { NAVIGATION_LINKS } from "@/lib/data";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -55,7 +56,7 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-3 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
           ? "py-3 bg-background/80 backdrop-blur-xl border-b border-border-subtle shadow-xs"
           : "py-5 bg-transparent"
@@ -67,19 +68,16 @@ export function Navbar() {
           <Link
             href="#home"
             onClick={(e) => handleNavClick(e, "#home")}
-            className="group flex items-center gap-2.5 outline-hidden focus-visible:ring-2 focus-visible:ring-[#19B9EE] rounded-lg"
+            className="group flex items-center outline-hidden focus-visible:ring-2 focus-visible:ring-[#19B9EE] rounded-lg"
           >
-            <div className="w-8 h-8 rounded-lg bg-surface border border-border-subtle flex items-center justify-center text-[#19B9EE] group-hover:border-[#19B9EE]/60 transition-colors shadow-xs">
-              <Terminal className="w-4 h-4 text-[#19B9EE]" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-heading font-bold text-sm tracking-tight text-foreground group-hover:text-[#19B9EE] transition-colors">
-                {PERSONAL_INFO.name}
-              </span>
-              <span className="font-mono text-[10px] text-foreground-muted tracking-wider flex items-center gap-1.5">
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                AVAILABLE
-              </span>
+            <div className="w-16 h-12 rounded-lg bg-surface border border-border-subtle flex items-center justify-center px-2 group-hover:border-[#19B9EE]/60 transition-colors shadow-xs">
+              <Image
+                src="/logo_nahid.png"
+                alt="S.M. Nahid Hasan logo"
+                width={64}
+                height={36}
+                className="h-9 w-auto object-contain"
+              />
             </div>
           </Link>
 

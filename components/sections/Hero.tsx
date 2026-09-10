@@ -48,6 +48,7 @@ export function Hero() {
           setDisplayedText(currentSpecialty.slice(0, displayedText.length - 1));
         }, 40);
       } else {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsDeleting(false);
         setSpecialtyIndex((prev) => (prev + 1) % SPECIALTIES.length);
       }
@@ -157,14 +158,14 @@ export async function buildProduct(requirements: Problem) {
 
             {/* Action Buttons & Social Links */}
             <div className="flex flex-wrap items-center gap-3.5 pt-2">
-              <button
-                type="button"
-                onClick={() => handleScroll("contact")}
+              <a
+                href="/resume.pdf"
+                download
                 className="group inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-[#19B9EE] text-[#05070A] hover:bg-[#38C8F5] transition-all duration-200 shadow-md shadow-[#19B9EE]/25 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
               >
-                <span>Hire Me</span>
+                <span>Download Resume</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </button>
+              </a>
 
               <button
                 type="button"

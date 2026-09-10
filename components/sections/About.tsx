@@ -13,13 +13,6 @@ export function About() {
     <section id="about" className="py-20 md:py-28 lg:py-32 border-t border-border-subtle">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Editorial Section Label */}
-        <div className="flex items-center gap-3 mb-10 md:mb-14">
-
-          <span className="w-6 h-px bg-[#19B9EE]/50" aria-hidden="true" />
-
-        </div>
-
         {/* Main Asymmetric Grid: Photo (Left 40%) + Content (Right 60%) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
@@ -48,14 +41,6 @@ export function About() {
                   <div className="absolute bottom-3 right-3 w-3 h-3 border-b border-r border-white/40 pointer-events-none" />
                 </div>
 
-                {/* Understated Editorial Caption Below Image */}
-                <div className="flex items-center justify-between px-2 pt-3 pb-1 font-mono text-[11px] text-foreground-muted select-none">
-                  <span className="font-medium text-foreground tracking-tight">
-                    {PERSONAL_INFO.name.toUpperCase()}
-                  </span>
-
-
-                </div>
               </div>
 
             </div>
@@ -85,7 +70,7 @@ export function About() {
             {/* Actions: Download Resume & GitHub */}
             <div className="flex flex-wrap items-center gap-4 pt-1">
               <a
-                href="#contact"
+                href="/resume.pdf"
                 className="group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-[#19B9EE] text-[#05070A] hover:bg-[#38C8F5] transition-all duration-200 shadow-sm shadow-[#19B9EE]/25 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
               >
                 <FileDown className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />

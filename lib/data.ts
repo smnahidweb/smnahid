@@ -137,7 +137,7 @@ export const STACK_CATEGORIES: StackCategory[] = [
 ];
 
 export const PERSONAL_INFO = {
-  name: "S.M. Nahid Hasan",
+  name: "S M Nahid Hasan",
   shortName: "Nahid Hasan",
   title: "Available for opportunities",
   positioning: "Frontend-focused Software Engineer · Full Stack Developer · Product Builder",

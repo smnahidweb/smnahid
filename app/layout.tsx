@@ -37,6 +37,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smnahid.dev"),
+  icons: {
+    icon: "/logo_nahid.png",
+    apple: "/logo_nahid.png",
+  },
   title: {
     default: "S.M. Nahid Hasan — Software Engineer & Product Builder",
     template: "%s | S.M. Nahid Hasan",

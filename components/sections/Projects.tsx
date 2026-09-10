@@ -3,7 +3,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { PROJECTS } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ExternalLink, ArrowRight } from "lucide-react";
@@ -23,7 +22,6 @@ function GithubIcon({ className }: { className?: string }) {
 }
 
 export function Projects() {
-  const reduced = useReducedMotion() ?? false;
   const featured = PROJECTS.find((p) => p.featured) || PROJECTS[0];
   const otherProjects = PROJECTS.filter((p) => p.id !== featured?.id);
 
@@ -46,11 +44,7 @@ export function Projects() {
 
         {/* ── Featured Showcase Card (Matching Reference Design) ── */}
         <div className="mt-12 lg:mt-16">
-          <motion.div
-            initial={reduced ? {} : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          <div
             className="group relative rounded-3xl border border-border-subtle bg-surface p-6 sm:p-8 lg:p-10 overflow-hidden shadow-xl shadow-black/5 dark:shadow-black/20"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -76,9 +70,14 @@ export function Projects() {
               {/* Right Column: Project Information */}
               <div className="lg:col-span-6 flex flex-col justify-center">
                 {/* Title */}
-                <h3 className="font-heading font-bold text-3xl sm:text-4xl lg:text-[40px] text-foreground tracking-tight leading-tight mb-3">
-                  {featured.title}
-                </h3>
+                <div className="flex flex-wrap items-center gap-3 mb-3">
+                  <h3 className="font-heading font-bold text-3xl sm:text-4xl lg:text-[40px] text-foreground tracking-tight leading-tight">
+                    {featured.title}
+                  </h3>
+                  <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wide text-amber-300">
+                    Website under construction
+                  </span>
+                </div>
 
                 {/* Description */}
                 <p className="font-sans text-sm sm:text-base text-foreground-secondary leading-relaxed mb-5 max-w-xl">
@@ -157,36 +156,20 @@ export function Projects() {
                 </div>
               </div>
             </div>
-          </motion.div>
+            </div>
         </div>
 
         {/* ── Scalable Secondary Projects (if future projects are added) ── */}
         {otherProjects.length > 0 && (
-          <div className="mt-20 pt-16 border-t border-border-subtle space-y-8">
-            <div>
-              <h4 className="font-heading font-semibold text-xl text-foreground">
-                Other Selected Work
-              </h4>
-              <p className="font-sans text-xs sm:text-sm text-foreground-secondary mt-1">
-                Additional software systems and engineering projects.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="mt-20 space-y-8">
+            <div className="space-y-8">
               {otherProjects.map((p) => (
                 <article
                   key={p.id}
-                  className="rounded-2xl border border-border-subtle bg-surface p-6 sm:p-7 flex flex-col justify-between space-y-6 hover:border-[#19B9EE]/30 transition-all duration-300"
+                  className="group relative rounded-3xl border border-border-subtle bg-surface p-6 sm:p-8 lg:p-10 overflow-hidden shadow-xl shadow-black/5 dark:shadow-black/20"
                 >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between text-xs font-mono text-foreground-muted">
-                      <span className="text-[#19B9EE] font-medium">{p.number}</span>
-                      <span>{p.category}</span>
-                    </div>
-                    <div
-                      className="w-full aspect-video rounded-lg bg-surface-raised border border-border-subtle overflow-hidden"
-                      style={{ aspectRatio: "16 / 9" }}
-                    >
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                    <div className="lg:col-span-6 lg:order-2 w-full">
                       <Image
                         src={p.coverImage}
                         alt={p.title}
@@ -194,32 +177,57 @@ export function Projects() {
                         height={675}
                         priority
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                        className="w-full h-full object-contain"
+                        className="w-full h-auto object-contain block rounded-2xl border border-border-subtle bg-surface-raised shadow-md"
                       />
                     </div>
-                    <h5 className="font-heading text-xl font-bold text-foreground transition-colors">
-                      {p.title}
-                    </h5>
-                    <p className="font-sans text-xs sm:text-sm text-foreground-secondary leading-relaxed">
-                      {p.description}
-                    </p>
-                  </div>
 
-                  <div className="pt-4 border-t border-border-subtle flex items-center justify-between font-mono text-xs">
-                    <span className="text-foreground-muted truncate mr-2">
-                      {p.stack.slice(0, 3).join(" · ")}
-                    </span>
-                    {p.liveUrl && (
-                      <a
-                        href={p.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#19B9EE] inline-flex items-center gap-1 hover:underline shrink-0"
-                      >
-                        <span>Live</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    )}
+                    <div className="lg:col-span-6 lg:order-1 flex flex-col justify-center">
+                      <h3 className="font-heading font-bold text-3xl sm:text-4xl lg:text-[40px] text-foreground tracking-tight leading-tight mb-3">
+                        {p.title}
+                      </h3>
+                      <p className="font-sans text-sm sm:text-base text-foreground-secondary leading-relaxed mb-5 max-w-xl">
+                        {p.description}
+                      </p>
+
+                      <ul className="space-y-2 mb-6">
+                        {p.features.slice(0, 3).map((feature) => (
+                          <li key={feature} className="flex items-center gap-2.5 text-xs sm:text-sm text-foreground-secondary">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#19B9EE] shrink-0" />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="flex flex-wrap gap-2 mb-8">
+                        {p.technologies.slice(0, 5).map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-1 rounded-full font-mono text-xs font-medium bg-[#19B9EE]/10 text-[#19B9EE] border border-[#19B9EE]/25"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                        {p.technologies.length > 5 && (
+                          <span className="px-3 py-1 rounded-full font-mono text-xs font-medium bg-surface-raised text-foreground-muted border border-border-subtle">
+                            +{p.technologies.length - 5} more
+                          </span>
+                        )}
+                      </div>
+
+                      {p.liveUrl && (
+                        <div className="flex flex-wrap items-center gap-3">
+                          <a
+                            href={p.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-[#19B9EE] text-[#05070A] hover:bg-[#38c8f5] shadow-lg shadow-[#19B9EE]/20 hover:shadow-[#19B9EE]/35 transition-all duration-200"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                            <span>Live Demo</span>
+                          </a>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </article>
               ))}

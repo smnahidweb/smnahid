@@ -75,7 +75,7 @@ export function Projects() {
                     {featured.title}
                   </h3>
                   <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wide text-amber-300">
-                    Website under construction
+                   Developing Phase
                   </span>
                 </div>
 

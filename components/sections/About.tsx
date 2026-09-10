@@ -7,7 +7,7 @@ import { ArrowUpRight, FileDown } from "lucide-react";
 
 
 export function About() {
-  const photoUrl = "https://github.com/smnahidweb.png";
+  const photoUrl = "/nahid.jpg";
 
   return (
     <section id="about" className="py-20 md:py-28 lg:py-32 border-t border-border-subtle">
@@ -53,7 +53,7 @@ export function About() {
             <div className="space-y-3">
 
               <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-[1.12]">
-                A little about me<span className="text-[#19B9EE]">.</span>
+                A little about me<span className="text-[#19B9EE]"></span>
               </h2>
             </div>
 

@@ -132,18 +132,7 @@ export function Projects() {
                     </a>
                   )}
 
-                  {/* Secondary: Source Code (Client) */}
-                  {featured.clientRepoUrl && (
-                    <a
-                      href={featured.clientRepoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-mono text-xs sm:text-sm font-medium bg-surface-raised hover:bg-surface-raised/80 border border-border-subtle hover:border-border-hover text-foreground transition-colors duration-200"
-                    >
-                      <GithubIcon className="w-4 h-4 text-foreground-muted" />
-                      <span>Source Code</span>
-                    </a>
-                  )}
+                  
 
                   {/* Secondary: View Details */}
                   <Link
